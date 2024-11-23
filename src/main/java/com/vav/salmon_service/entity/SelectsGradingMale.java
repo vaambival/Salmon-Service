@@ -77,6 +77,9 @@ public class SelectsGradingMale {
     @Column(name = "index_runnability")
     private Double runnabilityIndex;
 
+    @Column(name = "absolute_length")
+    private Integer weight;
+
     //абсолютные показатели репродукции
     @Column(name = "ejaculate_volume")
     private Integer ejaculateVolume;

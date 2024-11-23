@@ -87,7 +87,55 @@ public class SelectsGradingMale {
     @Column(name = "sperm_motility_time")
     private Integer spermMotilityTime;
 
-    //дневник самца
+    // Репродуктивные показатели
+    @Column(name = "weight_of_eggs")
+    private Integer weightOfEggs;
+
+    @Column(name = "weight_of_single_egg")
+    private Integer weightOfSingleEgg;
+
+    @Column(name = "caviar_proportion")
+    private Double caviarProportion;
+
+    @Column(name = "working_fertility")
+    private Double workingFertility;
+
+    // Оценка по качеству потомства
+    @Column(name = "percent_of_egg_fertilization")
+    private Integer percentOfEggFertilization;
+
+    @Column(name = "percent_of_embryo_survival")
+    private Integer percentOfEmbryoSurvival;
+
+    @Column(name = "percent_of_embryo_yield")
+    private Integer percentOfEmbryoYield;
+
+    @Column(name = "percent_of_death_to_the_peephole")
+    private Integer percentOfDeathToThePeephole;
+
+    @Column(name = "percent_of_death_after_the_peephole")
+    private Integer percentOfDeathAfterThePeephole;
+
+    @Column(name = "post_ocular_developmental_abnormalities")
+    private Integer postOcularDevelopmentalAbnormalities;
+
+    @Column(name = "percent_of_hatching_in_two_days")
+    private Integer percentOfHatchingInTwoDays;
+
+    @Column(name = "percent_of_went_up_on_the_float")
+    private Integer percentOfWentUpOnTheFloat;
+
+    // Оценка конверсии корма
+    @Column(name = "feed_factor")
+    private Double feedFactor;
+    @Column(name = "fillet_pigmentation")
+    private String filletPigmentation;
+    @Column(name = "active_feeding_survival_rate")
+    private Integer activeFeedingSurvivalRate;
+    @Column(name = "disease_resistance")
+    private Integer diseaseResistance;
+
+    //дневник
     @Column(name = "diary")
     private String diary;
 

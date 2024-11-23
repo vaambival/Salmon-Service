@@ -18,7 +18,9 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                                        Integer bodyHeightGte, Integer bodyHeightLte, Integer backThicknessGte,
                                        Integer backThicknessLte, Double fatnessIndexGte, Double fatnessIndexLte,
                                        Double headIndexGte, Double headIndexLte, Double thicknessIndexGte,
-                                       Double thicknessIndexLte, Integer ejaculateVolumeGte, Integer ejaculateVolumeLte,
+                                       Double thicknessIndexLte, Integer ejaculateVolumeGte,
+                                       Double indexRunnabilityLte, Integer indexRunnabilityGte,
+                                       Integer ejaculateVolumeLte,
                                        Double spermatocritValueGte, Double spermatocritValueLte,
                                        Integer spermMotilityTimeGte, Integer spermMotilityTimeLte) {
     public Specification<SelectsGradingMale> toSpecification() {
@@ -51,6 +53,8 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                 .and(headIndexLteSpec())
                 .and(thicknessIndexGteSpec())
                 .and(thicknessIndexLteSpec())
+                .and(indexRunnabilityLteSpec())
+                .and(indexRunnabilityGteSpec())
                 .and(ejaculateVolumeGteSpec())
                 .and(ejaculateVolumeLteSpec())
                 .and(spermatocritValueGteSpec())
@@ -230,6 +234,18 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
     private Specification<SelectsGradingMale> thicknessIndexLteSpec() {
         return ((root, query, cb) -> thicknessIndexLte != null
                 ? cb.lessThanOrEqualTo(root.get("thicknessIndex"), thicknessIndexLte)
+                : null);
+    }
+
+    private Specification<SelectsGradingMale> indexRunnabilityGteSpec() {
+        return ((root, query, cb) -> indexRunnabilityGte != null
+                ? cb.greaterThanOrEqualTo(root.get("indexRunnability"), indexRunnabilityGte)
+                : null);
+    }
+
+    private Specification<SelectsGradingMale> indexRunnabilityLteSpec() {
+        return ((root, query, cb) -> indexRunnabilityLte != null
+                ? cb.lessThanOrEqualTo(root.get("indexRunnability"), indexRunnabilityLte)
                 : null);
     }
 

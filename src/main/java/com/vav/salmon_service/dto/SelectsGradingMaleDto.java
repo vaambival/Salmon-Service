@@ -10,6 +10,6 @@ public record SelectsGradingMaleDto(Long id, String marker, LocalDate dateOfBirt
                                     Integer estimatedAgeDegreeDays, Integer absoluteLength,
                                     Integer bodyLengthBeforeEndScaleCover, Integer bodyLength, Integer headLength,
                                     Integer bodyHeight, Integer backThickness, Double fatnessIndex, Double headIndex,
-                                    Double thicknessIndex, Integer ejaculateVolume, Double spermatocritValue,
+                                    Double thicknessIndex, Double indexRunnability,Integer ejaculateVolume, Double spermatocritValue,
                                     Integer spermMotilityTime, String diary) {
 }

@@ -70,6 +70,9 @@ public class SelectsGradingMale {
     @Column(name = "thickness_index")
     private Double thicknessIndex;
 
+    @Column(name = "index_runnability")
+    private Double indexRunnability;
+
     //абсолютные показатели телосложения
     @Column(name = "ejaculate_volume")
     private Integer ejaculateVolume;

@@ -77,7 +77,7 @@ public class SelectsGradingMale {
     @Column(name = "index_runnability")
     private Double runnabilityIndex;
 
-    @Column(name = "absolute_length")
+    @Column(name = "weight")
     private Integer weight;
 
     //абсолютные показатели репродукции
@@ -102,6 +102,12 @@ public class SelectsGradingMale {
 
     @Column(name = "working_fertility")
     private Double workingFertility;
+
+    @Column(name = "reproductive_index")
+    private Double reproductiveIndex;
+
+    @Column(name = "relative_fecundity")
+    private Double relativeFecundity;
 
     // Оценка по качеству потомства
     @Column(name = "percent_of_egg_fertilization")

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBirthGte, LocalDate dateOfBirthLte,
                                        LocalDate dateOfMarkGte, LocalDate dateOfMarkLte,
@@ -23,7 +24,8 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                                        Double indexRunnabilityLte, Integer indexRunnabilityGte,
                                        Integer ejaculateVolumeLte,
                                        Double spermatocritValueGte, Double spermatocritValueLte,
-                                       Integer spermMotilityTimeGte, Integer spermMotilityTimeLte) {
+                                       Integer spermMotilityTimeGte, Integer spermMotilityTimeLte,
+                                       LocalDateTime createdGte, LocalDateTime createdLte) {
     public Specification<SelectsGradingMale> toSpecification() {
         return Specification.where(markerContainsSpec())
                 .and(dateOfMarkGteSpec())
@@ -63,7 +65,19 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                 .and(spermatocritValueGteSpec())
                 .and(spermatocritValueLteSpec())
                 .and(spermMotilityTimeGteSpec())
-                .and(spermMotilityTimeLteSpec());
+                .and(spermMotilityTimeLteSpec())
+                .and(createdGteSpec())
+                .and(createdLteSpec());
+    }
+
+    private Specification<SelectsGradingMale> createdGteSpec() {
+        return (root, query, criteriaBuilder) -> createdGte != null ?
+                criteriaBuilder.greaterThanOrEqualTo(root.get("created"), createdGte) : null;
+    }
+
+    private Specification<SelectsGradingMale> createdLteSpec() {
+        return (root, query, criteriaBuilder) -> createdLte != null ?
+                criteriaBuilder.lessThanOrEqualTo(root.get("created"), createdLte) : null;
     }
 
     private Specification<SelectsGradingMale> markerContainsSpec() {

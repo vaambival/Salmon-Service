@@ -1,0 +1,4 @@
+package com.vav.salmon_service.dto.report;
+
+public class SigmaReport extends ReportRecord {
+}

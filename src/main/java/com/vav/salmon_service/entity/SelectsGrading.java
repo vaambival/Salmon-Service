@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "selects_grading_male")
-public class SelectsGradingMale {
+@Table(name = "selects_grading")
+public class SelectsGrading {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "selects_grading_male_seq")
@@ -27,6 +27,9 @@ public class SelectsGradingMale {
 
     @Column(name = "marker")
     private String tag;
+
+    @Column(name = "gender")
+    private String gender;
 
     @Column(name = "created")
     private LocalDateTime created;
@@ -137,10 +140,13 @@ public class SelectsGradingMale {
     // Оценка конверсии корма
     @Column(name = "feed_factor")
     private Double feedFactor;
+
     @Column(name = "fillet_pigmentation")
     private String filletPigmentation;
+
     @Column(name = "active_feeding_survival_rate")
     private Integer activeFeedingSurvivalRate;
+
     @Column(name = "disease_resistance")
     private Integer diseaseResistance;
 

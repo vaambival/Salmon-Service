@@ -1,8 +1,8 @@
 package com.vav.salmon_service.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.vav.salmon_service.dto.SelectsGradingMaleDto;
-import com.vav.salmon_service.service.SelectsGradingMaleService;
+import com.vav.salmon_service.dto.SelectsGradingDto;
+import com.vav.salmon_service.service.SelectsGradingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,48 +24,48 @@ import java.util.List;
 @RestController
 @RequestMapping("trout/rest/selects_grading")
 @RequiredArgsConstructor
-public class SelectsGradingMaleController {
+public class SelectsGradingController {
 
-    private final SelectsGradingMaleService selectsGradingMaleService;
+    private final SelectsGradingService selectsGradingService;
 
     @GetMapping
-    public PagedModel<SelectsGradingMaleDto> getList(@ModelAttribute SelectsGradingMaleFilter filter, Pageable pageable) {
-        Page<SelectsGradingMaleDto> selectsGradingMaleDtos = selectsGradingMaleService.getList(filter, pageable);
+    public PagedModel<SelectsGradingDto> getList(@ModelAttribute SelectsGradingFilter filter, Pageable pageable) {
+        Page<SelectsGradingDto> selectsGradingMaleDtos = selectsGradingService.getList(filter, pageable);
         return new PagedModel<>(selectsGradingMaleDtos);
     }
 
     @GetMapping("/{id}")
-    public SelectsGradingMaleDto getOne(@PathVariable Long id) {
-        return selectsGradingMaleService.getOne(id);
+    public SelectsGradingDto getOne(@PathVariable Long id) {
+        return selectsGradingService.getOne(id);
     }
 
     @GetMapping("/by-ids")
-    public List<SelectsGradingMaleDto> getMany(@RequestParam List<Long> ids) {
-        return selectsGradingMaleService.getMany(ids);
+    public List<SelectsGradingDto> getMany(@RequestParam List<Long> ids) {
+        return selectsGradingService.getMany(ids);
     }
 
     @PostMapping
-    public SelectsGradingMaleDto create(@RequestBody SelectsGradingMaleDto dto) {
-        return selectsGradingMaleService.create(dto);
+    public SelectsGradingDto create(@RequestBody SelectsGradingDto dto) {
+        return selectsGradingService.create(dto);
     }
 
     @PatchMapping("/{id}")
-    public SelectsGradingMaleDto patch(@PathVariable Long id, @RequestBody JsonNode patchNode) throws IOException {
-        return selectsGradingMaleService.patch(id, patchNode);
+    public SelectsGradingDto patch(@PathVariable Long id, @RequestBody JsonNode patchNode) throws IOException {
+        return selectsGradingService.patch(id, patchNode);
     }
 
     @PatchMapping
     public List<Long> patchMany(@RequestParam List<Long> ids, @RequestBody JsonNode patchNode) throws IOException {
-        return selectsGradingMaleService.patchMany(ids, patchNode);
+        return selectsGradingService.patchMany(ids, patchNode);
     }
 
     @DeleteMapping("/{id}")
-    public SelectsGradingMaleDto delete(@PathVariable Long id) {
-        return selectsGradingMaleService.delete(id);
+    public SelectsGradingDto delete(@PathVariable Long id) {
+        return selectsGradingService.delete(id);
     }
 
     @DeleteMapping
     public void deleteMany(@RequestParam List<Long> ids) {
-        selectsGradingMaleService.deleteMany(ids);
+        selectsGradingService.deleteMany(ids);
     }
 }

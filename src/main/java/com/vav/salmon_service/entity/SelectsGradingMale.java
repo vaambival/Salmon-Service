@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -23,6 +24,9 @@ public class SelectsGradingMale {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "selects_grading_male_seq")
     @SequenceGenerator(name = "selects_grading_male_seq", sequenceName = "selects_grading_male_id_seq", allocationSize = 1)
     private Long id;
+
+    @Column(name = "date_of_mark")
+    private LocalDateTime dateOfMark;
 
     @Column(name = "marker")
     private String marker;

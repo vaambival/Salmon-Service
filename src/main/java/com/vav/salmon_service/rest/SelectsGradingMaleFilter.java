@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDate;
 
 public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBirthGte, LocalDate dateOfBirthLte,
+                                       LocalDate dateOfMarkGte, LocalDate dateOfMarkLte,
                                        LocalDate dateOfHatchingGte, LocalDate dateOfHatchingLte,
                                        LocalDate dateOfStartFeedingGte, LocalDate dateOfStartFeedingLte,
                                        Integer estimatedAgeDaysGte, Integer estimatedAgeDaysLte,
@@ -25,6 +26,8 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                                        Integer spermMotilityTimeGte, Integer spermMotilityTimeLte) {
     public Specification<SelectsGradingMale> toSpecification() {
         return Specification.where(markerContainsSpec())
+                .and(dateOfMarkGteSpec())
+                .and(dateOfMarkLteSpec())
                 .and(dateOfBirthGteSpec())
                 .and(dateOfBirthLteSpec())
                 .and(dateOfHatchingGteSpec())
@@ -84,6 +87,17 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
     private Specification<SelectsGradingMale> dateOfHatchingGteSpec() {
         return ((root, query, cb) -> dateOfHatchingGte != null
                 ? cb.greaterThanOrEqualTo(root.get("dateOfHatching"), dateOfHatchingGte)
+                : null);
+    }
+    private Specification<SelectsGradingMale> dateOfMarkLteSpec() {
+        return ((root, query, cb) -> dateOfMarkLte != null
+                ? cb.lessThanOrEqualTo(root.get("dateOfMark"), dateOfMarkLte)
+                : null);
+    }
+
+    private Specification<SelectsGradingMale> dateOfMarkGteSpec() {
+        return ((root, query, cb) -> dateOfMarkGte != null
+                ? cb.greaterThanOrEqualTo(root.get("dateOfMark"), dateOfMarkGte)
                 : null);
     }
 

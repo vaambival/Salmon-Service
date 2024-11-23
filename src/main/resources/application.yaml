@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: salmon-service
+  datasource:
+#    driver-class-name:
+    url: jdbc:postgresql://localhost:5432/trout
+    username: postgres
+#    password: postgres
+    password: 5934
+  jpa:
+    hibernate:
+      show-sql: true
+  liquibase:
+    change-log: classpath:liquibase/master.xml

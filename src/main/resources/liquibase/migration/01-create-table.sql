@@ -1,0 +1,35 @@
+--liquibase formatted sql
+--changeset vkurov:create-table-selects_grading_male
+CREATE SEQUENCE IF NOT EXISTS selects_grading_male_id_seq;
+CREATE TABLE IF NOT EXISTS selects_grading_male (
+    id bigint CONSTRAINT sgm_pk PRIMARY KEY,
+    marker varchar,
+    created timestamp,
+    date_of_birth date,
+    date_of_hatching date,
+    date_of_start_feeding date,
+    estimated_age_days smallint,
+    estimated_age_degree_days smallint,
+    absolute_length smallint,
+    body_length_before_end_scale_cover smallint,
+    body_length smallint,
+    head_length smallint,
+    body_height smallint,
+    back_thickness smallint,
+    fatness_index real,
+    head_index real,
+    thickness_index real,
+    ejaculate_volume int,
+    spermatocrit_value real,
+    sperm_motility_time int,
+    index_runnability real,
+    diary text,
+    CONSTRAINT estimated_age_days_should_be_positive CHECK (estimated_age_days > 0),
+    CONSTRAINT estimated_age_degree_days_should_be_positive CHECK (estimated_age_degree_days > 0),
+    CONSTRAINT absolute_length_should_be_positive CHECK (absolute_length > 0),
+    CONSTRAINT body_length_before_end_scale_cover_should_be_positive CHECK (body_length_before_end_scale_cover > 0),
+    CONSTRAINT body_length_should_be_positive CHECK (body_length > 0),
+    CONSTRAINT head_length_should_be_positive CHECK (head_length > 0),
+    CONSTRAINT body_height_should_be_positive CHECK (body_height > 0),
+    CONSTRAINT back_thickness_should_be_positive CHECK (back_thickness > 0)
+);

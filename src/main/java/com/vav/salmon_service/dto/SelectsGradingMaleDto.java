@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 /**
  * DTO for {@link com.vav.salmon_service.entity.SelectsGradingMale}
  */
-public record SelectsGradingMaleDto(Long id, LocalDateTime dateOfMark, String marker, LocalDate dateOfBirth, LocalDate dateOfHatching,
+public record SelectsGradingMaleDto(Long id, String marker, LocalDateTime created, LocalDate dateOfBirth, LocalDate dateOfHatching,
                                     LocalDate dateOfStartFeeding, Integer estimatedAgeDays,
                                     Integer estimatedAgeDegreeDays, Integer absoluteLength,
                                     Integer bodyLengthBeforeEndScaleCover, Integer bodyLength, Integer headLength,

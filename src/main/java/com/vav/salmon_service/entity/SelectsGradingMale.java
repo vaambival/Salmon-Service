@@ -25,11 +25,11 @@ public class SelectsGradingMale {
     @SequenceGenerator(name = "selects_grading_male_seq", sequenceName = "selects_grading_male_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "date_of_mark")
-    private LocalDateTime dateOfMark;
-
     @Column(name = "marker")
     private String marker;
+
+    @Column(name = "created")
+    private LocalDateTime created;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
@@ -77,7 +77,7 @@ public class SelectsGradingMale {
     @Column(name = "index_runnability")
     private Double indexRunnability;
 
-    //абсолютные показатели телосложения
+    //абсолютные показатели репродукции
     @Column(name = "ejaculate_volume")
     private Integer ejaculateVolume;
 

@@ -7,67 +7,64 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBirthGte, LocalDate dateOfBirthLte,
-                                       LocalDate dateOfMarkGte, LocalDate dateOfMarkLte,
-                                       LocalDate dateOfHatchingGte, LocalDate dateOfHatchingLte,
-                                       LocalDate dateOfStartFeedingGte, LocalDate dateOfStartFeedingLte,
-                                       Integer estimatedAgeDaysGte, Integer estimatedAgeDaysLte,
-                                       Integer estimatedAgeDegreeDaysGte, Integer estimatedAgeDegreeDaysLte,
-                                       Integer absoluteLengthGte, Integer absoluteLengthLte,
-                                       Integer bodyLengthBeforeEndScaleCoverGte,
-                                       Integer bodyLengthBeforeEndScaleCoverLte, Integer bodyLengthGte,
-                                       Integer bodyLengthLte, Integer headLengthGte, Integer headLengthLte,
-                                       Integer bodyHeightGte, Integer bodyHeightLte, Integer backThicknessGte,
-                                       Integer backThicknessLte, Double fatnessIndexGte, Double fatnessIndexLte,
-                                       Double headIndexGte, Double headIndexLte, Double thicknessIndexGte,
-                                       Double thicknessIndexLte, Integer ejaculateVolumeGte,
-                                       Double indexRunnabilityLte, Integer indexRunnabilityGte,
+public record SelectsGradingMaleFilter(String tag, LocalDate dateOfBirthGte, LocalDate dateOfBirthLte,
+                                       LocalDate dateOfHatchGte, LocalDate dateOfHatchLte,
+                                       LocalDate dateOfFirstFeedGte, LocalDate dateOfFirstFeedLte,
+                                       Integer ageInDaysGte, Integer ageInDaysLte,
+                                       Integer ageInDayDegreesGte, Integer ageInDayDegreesLte,
+                                       Integer lengthAbsoluteGte, Integer lengthAbsoluteLte,
+                                       Integer lengthBeforeScalesGte,
+                                       Integer lengthBeforeScalesLte, Integer lengthBodyGte,
+                                       Integer lengthBodyLte, Integer lengthHeadGte, Integer lengthHeadLte,
+                                       Integer heightBodyGte, Integer heightBodyLte, Integer thicknessOfBackGte,
+                                       Integer thicknessOfBackLte, Double fatnessFactorGte, Double fatnessFactorLte,
+                                       Double headFactorGte, Double headFactorLte, Double thickFactorGte,
+                                       Double thickFactorLte, Integer ejaculateVolumeGte,
+                                       Double runnabilityIndexLte, Integer runnabilityIndexGte,
                                        Integer ejaculateVolumeLte,
-                                       Double spermatocritValueGte, Double spermatocritValueLte,
+                                       Double spermConcentrationGte, Double spermConcentrationLte,
                                        Integer spermMotilityTimeGte, Integer spermMotilityTimeLte,
                                        LocalDateTime createdGte, LocalDateTime createdLte) {
     public Specification<SelectsGradingMale> toSpecification() {
         return Specification.where(markerContainsSpec())
-                .and(dateOfMarkGteSpec())
-                .and(dateOfMarkLteSpec())
+                .and(createdGteSpec())
+                .and(createdLteSpec())
                 .and(dateOfBirthGteSpec())
                 .and(dateOfBirthLteSpec())
-                .and(dateOfHatchingGteSpec())
-                .and(dateOfHatchingLteSpec())
-                .and(dateOfStartFeedingGteSpec())
-                .and(dateOfStartFeedingLteSpec())
-                .and(estimatedAgeDaysGteSpec())
-                .and(estimatedAgeDaysLteSpec())
-                .and(estimatedAgeDegreeDaysGteSpec())
-                .and(estimatedAgeDegreeDaysLteSpec())
-                .and(absoluteLengthGteSpec())
-                .and(absoluteLengthLteSpec())
-                .and(bodyLengthBeforeEndScaleCoverGteSpec())
-                .and(bodyLengthBeforeEndScaleCoverLteSpec())
-                .and(bodyLengthGteSpec())
-                .and(bodyLengthLteSpec())
-                .and(headLengthGteSpec())
-                .and(headLengthLteSpec())
-                .and(bodyHeightGteSpec())
-                .and(bodyHeightLteSpec())
-                .and(backThicknessGteSpec())
-                .and(backThicknessLteSpec())
-                .and(fatnessIndexGteSpec())
-                .and(fatnessIndexLteSpec())
-                .and(headIndexGteSpec())
-                .and(headIndexLteSpec())
-                .and(thicknessIndexGteSpec())
-                .and(thicknessIndexLteSpec())
-                .and(indexRunnabilityLteSpec())
-                .and(indexRunnabilityGteSpec())
+                .and(dateOfHatchGteSpec())
+                .and(dateOfHatchLteSpec())
+                .and(dateOfFirstFeedGteSpec())
+                .and(dateOfFirstFeedLteSpec())
+                .and(ageInDaysGteSpec())
+                .and(ageInDaysLteSpec())
+                .and(ageInDayDegreesGteSpec())
+                .and(ageInDayDegreesLteSpec())
+                .and(lengthAbsoluteGteSpec())
+                .and(lengthAbsoluteLteSpec())
+                .and(lengthBeforeScalesGteSpec())
+                .and(lengthBeforeScalesLteSpec())
+                .and(lengthBodyGteSpec())
+                .and(lengthBodyLteSpec())
+                .and(lengthHeadGteSpec())
+                .and(lengthHeadLteSpec())
+                .and(heightBodyGteSpec())
+                .and(heightBodyLteSpec())
+                .and(thicknessOfBackGteSpec())
+                .and(thicknessOfBackLteSpec())
+                .and(fatnessFactorGteSpec())
+                .and(fatnessFactorLteSpec())
+                .and(headFactorGteSpec())
+                .and(headFactorLteSpec())
+                .and(thickFactorGteSpec())
+                .and(thickFactorLteSpec())
+                .and(runnabilityIndexLteSpec())
+                .and(runnabilityIndexGteSpec())
                 .and(ejaculateVolumeGteSpec())
                 .and(ejaculateVolumeLteSpec())
-                .and(spermatocritValueGteSpec())
-                .and(spermatocritValueLteSpec())
+                .and(spermConcentrationGteSpec())
+                .and(spermConcentrationLteSpec())
                 .and(spermMotilityTimeGteSpec())
-                .and(spermMotilityTimeLteSpec())
-                .and(createdGteSpec())
-                .and(createdLteSpec());
+                .and(spermMotilityTimeLteSpec());
     }
 
     private Specification<SelectsGradingMale> createdGteSpec() {
@@ -81,8 +78,8 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
     }
 
     private Specification<SelectsGradingMale> markerContainsSpec() {
-        return ((root, query, cb) -> StringUtils.hasText(markerContains)
-                ? cb.like(root.get("marker"), "%" + markerContains + "%")
+        return ((root, query, cb) -> StringUtils.hasText(tag)
+                ? cb.like(root.get("marker"), "%" + tag + "%")
                 : null);
     }
 
@@ -98,182 +95,171 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                 : null);
     }
 
-    private Specification<SelectsGradingMale> dateOfHatchingGteSpec() {
-        return ((root, query, cb) -> dateOfHatchingGte != null
-                ? cb.greaterThanOrEqualTo(root.get("dateOfHatching"), dateOfHatchingGte)
-                : null);
-    }
-    private Specification<SelectsGradingMale> dateOfMarkLteSpec() {
-        return ((root, query, cb) -> dateOfMarkLte != null
-                ? cb.lessThanOrEqualTo(root.get("dateOfMark"), dateOfMarkLte)
+    private Specification<SelectsGradingMale> dateOfHatchGteSpec() {
+        return ((root, query, cb) -> dateOfHatchGte != null
+                ? cb.greaterThanOrEqualTo(root.get("dateOfHatch"), dateOfHatchGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> dateOfMarkGteSpec() {
-        return ((root, query, cb) -> dateOfMarkGte != null
-                ? cb.greaterThanOrEqualTo(root.get("dateOfMark"), dateOfMarkGte)
+    private Specification<SelectsGradingMale> dateOfHatchLteSpec() {
+        return ((root, query, cb) -> dateOfHatchLte != null
+                ? cb.lessThanOrEqualTo(root.get("dateOfHatch"), dateOfHatchLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> dateOfHatchingLteSpec() {
-        return ((root, query, cb) -> dateOfHatchingLte != null
-                ? cb.lessThanOrEqualTo(root.get("dateOfHatching"), dateOfHatchingLte)
+    private Specification<SelectsGradingMale> dateOfFirstFeedGteSpec() {
+        return ((root, query, cb) -> dateOfFirstFeedGte != null
+                ? cb.greaterThanOrEqualTo(root.get("dateOfFirstFeed"), dateOfFirstFeedGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> dateOfStartFeedingGteSpec() {
-        return ((root, query, cb) -> dateOfStartFeedingGte != null
-                ? cb.greaterThanOrEqualTo(root.get("dateOfStartFeeding"), dateOfStartFeedingGte)
+    private Specification<SelectsGradingMale> dateOfFirstFeedLteSpec() {
+        return ((root, query, cb) -> dateOfFirstFeedLte != null
+                ? cb.lessThanOrEqualTo(root.get("dateOfFirstFeed"), dateOfFirstFeedLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> dateOfStartFeedingLteSpec() {
-        return ((root, query, cb) -> dateOfStartFeedingLte != null
-                ? cb.lessThanOrEqualTo(root.get("dateOfStartFeeding"), dateOfStartFeedingLte)
+    private Specification<SelectsGradingMale> ageInDaysGteSpec() {
+        return ((root, query, cb) -> ageInDaysGte != null
+                ? cb.greaterThanOrEqualTo(root.get("ageInDays"), ageInDaysGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> estimatedAgeDaysGteSpec() {
-        return ((root, query, cb) -> estimatedAgeDaysGte != null
-                ? cb.greaterThanOrEqualTo(root.get("estimatedAgeDays"), estimatedAgeDaysGte)
+    private Specification<SelectsGradingMale> ageInDaysLteSpec() {
+        return ((root, query, cb) -> ageInDaysLte != null
+                ? cb.lessThanOrEqualTo(root.get("ageInDays"), ageInDaysLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> estimatedAgeDaysLteSpec() {
-        return ((root, query, cb) -> estimatedAgeDaysLte != null
-                ? cb.lessThanOrEqualTo(root.get("estimatedAgeDays"), estimatedAgeDaysLte)
+    private Specification<SelectsGradingMale> ageInDayDegreesGteSpec() {
+        return ((root, query, cb) -> ageInDayDegreesGte != null
+                ? cb.greaterThanOrEqualTo(root.get("ageInDayDegrees"), ageInDayDegreesGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> estimatedAgeDegreeDaysGteSpec() {
-        return ((root, query, cb) -> estimatedAgeDegreeDaysGte != null
-                ? cb.greaterThanOrEqualTo(root.get("estimatedAgeDegreeDays"), estimatedAgeDegreeDaysGte)
+    private Specification<SelectsGradingMale> ageInDayDegreesLteSpec() {
+        return ((root, query, cb) -> ageInDayDegreesLte != null
+                ? cb.lessThanOrEqualTo(root.get("ageInDayDegrees"), ageInDayDegreesLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> estimatedAgeDegreeDaysLteSpec() {
-        return ((root, query, cb) -> estimatedAgeDegreeDaysLte != null
-                ? cb.lessThanOrEqualTo(root.get("estimatedAgeDegreeDays"), estimatedAgeDegreeDaysLte)
+    private Specification<SelectsGradingMale> lengthAbsoluteGteSpec() {
+        return ((root, query, cb) -> lengthAbsoluteGte != null
+                ? cb.greaterThanOrEqualTo(root.get("lengthAbsolute"), lengthAbsoluteGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> absoluteLengthGteSpec() {
-        return ((root, query, cb) -> absoluteLengthGte != null
-                ? cb.greaterThanOrEqualTo(root.get("absoluteLength"), absoluteLengthGte)
+    private Specification<SelectsGradingMale> lengthAbsoluteLteSpec() {
+        return ((root, query, cb) -> lengthAbsoluteLte != null
+                ? cb.lessThanOrEqualTo(root.get("lengthAbsolute"), lengthAbsoluteLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> absoluteLengthLteSpec() {
-        return ((root, query, cb) -> absoluteLengthLte != null
-                ? cb.lessThanOrEqualTo(root.get("absoluteLength"), absoluteLengthLte)
+    private Specification<SelectsGradingMale> lengthBeforeScalesGteSpec() {
+        return ((root, query, cb) -> lengthBeforeScalesGte != null
+                ? cb.greaterThanOrEqualTo(root.get("lengthBeforeScales"), lengthBeforeScalesGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> bodyLengthBeforeEndScaleCoverGteSpec() {
-        return ((root, query, cb) -> bodyLengthBeforeEndScaleCoverGte != null
-                ? cb.greaterThanOrEqualTo(root.get("bodyLengthBeforeEndScaleCover"), bodyLengthBeforeEndScaleCoverGte)
+    private Specification<SelectsGradingMale> lengthBeforeScalesLteSpec() {
+        return ((root, query, cb) -> lengthBeforeScalesLte != null
+                ? cb.lessThanOrEqualTo(root.get("lengthBeforeScales"), lengthBeforeScalesLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> bodyLengthBeforeEndScaleCoverLteSpec() {
-        return ((root, query, cb) -> bodyLengthBeforeEndScaleCoverLte != null
-                ? cb.lessThanOrEqualTo(root.get("bodyLengthBeforeEndScaleCover"), bodyLengthBeforeEndScaleCoverLte)
+    private Specification<SelectsGradingMale> lengthBodyGteSpec() {
+        return ((root, query, cb) -> lengthBodyGte != null
+                ? cb.greaterThanOrEqualTo(root.get("lengthBody"), lengthBodyGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> bodyLengthGteSpec() {
-        return ((root, query, cb) -> bodyLengthGte != null
-                ? cb.greaterThanOrEqualTo(root.get("bodyLength"), bodyLengthGte)
+    private Specification<SelectsGradingMale> lengthBodyLteSpec() {
+        return ((root, query, cb) -> lengthBodyLte != null
+                ? cb.lessThanOrEqualTo(root.get("lengthBody"), lengthBodyLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> bodyLengthLteSpec() {
-        return ((root, query, cb) -> bodyLengthLte != null
-                ? cb.lessThanOrEqualTo(root.get("bodyLength"), bodyLengthLte)
+    private Specification<SelectsGradingMale> lengthHeadGteSpec() {
+        return ((root, query, cb) -> lengthHeadGte != null
+                ? cb.greaterThanOrEqualTo(root.get("lengthHead"), lengthHeadGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> headLengthGteSpec() {
-        return ((root, query, cb) -> headLengthGte != null
-                ? cb.greaterThanOrEqualTo(root.get("headLength"), headLengthGte)
+    private Specification<SelectsGradingMale> lengthHeadLteSpec() {
+        return ((root, query, cb) -> lengthHeadLte != null
+                ? cb.lessThanOrEqualTo(root.get("lengthHead"), lengthHeadLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> headLengthLteSpec() {
-        return ((root, query, cb) -> headLengthLte != null
-                ? cb.lessThanOrEqualTo(root.get("headLength"), headLengthLte)
+    private Specification<SelectsGradingMale> heightBodyGteSpec() {
+        return ((root, query, cb) -> heightBodyGte != null
+                ? cb.greaterThanOrEqualTo(root.get("heightBody"), heightBodyGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> bodyHeightGteSpec() {
-        return ((root, query, cb) -> bodyHeightGte != null
-                ? cb.greaterThanOrEqualTo(root.get("bodyHeight"), bodyHeightGte)
+    private Specification<SelectsGradingMale> heightBodyLteSpec() {
+        return ((root, query, cb) -> heightBodyLte != null
+                ? cb.lessThanOrEqualTo(root.get("heightBody"), heightBodyLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> bodyHeightLteSpec() {
-        return ((root, query, cb) -> bodyHeightLte != null
-                ? cb.lessThanOrEqualTo(root.get("bodyHeight"), bodyHeightLte)
+    private Specification<SelectsGradingMale> thicknessOfBackGteSpec() {
+        return ((root, query, cb) -> thicknessOfBackGte != null
+                ? cb.greaterThanOrEqualTo(root.get("thicknessOfBack"), thicknessOfBackGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> backThicknessGteSpec() {
-        return ((root, query, cb) -> backThicknessGte != null
-                ? cb.greaterThanOrEqualTo(root.get("backThickness"), backThicknessGte)
+    private Specification<SelectsGradingMale> thicknessOfBackLteSpec() {
+        return ((root, query, cb) -> thicknessOfBackLte != null
+                ? cb.lessThanOrEqualTo(root.get("thicknessOfBack"), thicknessOfBackLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> backThicknessLteSpec() {
-        return ((root, query, cb) -> backThicknessLte != null
-                ? cb.lessThanOrEqualTo(root.get("backThickness"), backThicknessLte)
+    private Specification<SelectsGradingMale> fatnessFactorGteSpec() {
+        return ((root, query, cb) -> fatnessFactorGte != null
+                ? cb.greaterThanOrEqualTo(root.get("fatnessFactor"), fatnessFactorGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> fatnessIndexGteSpec() {
-        return ((root, query, cb) -> fatnessIndexGte != null
-                ? cb.greaterThanOrEqualTo(root.get("fatnessIndex"), fatnessIndexGte)
+    private Specification<SelectsGradingMale> fatnessFactorLteSpec() {
+        return ((root, query, cb) -> fatnessFactorLte != null
+                ? cb.lessThanOrEqualTo(root.get("fatnessFactor"), fatnessFactorLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> fatnessIndexLteSpec() {
-        return ((root, query, cb) -> fatnessIndexLte != null
-                ? cb.lessThanOrEqualTo(root.get("fatnessIndex"), fatnessIndexLte)
+    private Specification<SelectsGradingMale> headFactorGteSpec() {
+        return ((root, query, cb) -> headFactorGte != null
+                ? cb.greaterThanOrEqualTo(root.get("headFactor"), headFactorGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> headIndexGteSpec() {
-        return ((root, query, cb) -> headIndexGte != null
-                ? cb.greaterThanOrEqualTo(root.get("headIndex"), headIndexGte)
+    private Specification<SelectsGradingMale> headFactorLteSpec() {
+        return ((root, query, cb) -> headFactorLte != null
+                ? cb.lessThanOrEqualTo(root.get("headFactor"), headFactorLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> headIndexLteSpec() {
-        return ((root, query, cb) -> headIndexLte != null
-                ? cb.lessThanOrEqualTo(root.get("headIndex"), headIndexLte)
+    private Specification<SelectsGradingMale> thickFactorGteSpec() {
+        return ((root, query, cb) -> thickFactorGte != null
+                ? cb.greaterThanOrEqualTo(root.get("thickFactor"), thickFactorGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> thicknessIndexGteSpec() {
-        return ((root, query, cb) -> thicknessIndexGte != null
-                ? cb.greaterThanOrEqualTo(root.get("thicknessIndex"), thicknessIndexGte)
+    private Specification<SelectsGradingMale> thickFactorLteSpec() {
+        return ((root, query, cb) -> thickFactorLte != null
+                ? cb.lessThanOrEqualTo(root.get("thickFactor"), thickFactorLte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> thicknessIndexLteSpec() {
-        return ((root, query, cb) -> thicknessIndexLte != null
-                ? cb.lessThanOrEqualTo(root.get("thicknessIndex"), thicknessIndexLte)
+    private Specification<SelectsGradingMale> runnabilityIndexGteSpec() {
+        return ((root, query, cb) -> runnabilityIndexGte != null
+                ? cb.greaterThanOrEqualTo(root.get("runnabilityIndex"), runnabilityIndexGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> indexRunnabilityGteSpec() {
-        return ((root, query, cb) -> indexRunnabilityGte != null
-                ? cb.greaterThanOrEqualTo(root.get("indexRunnability"), indexRunnabilityGte)
-                : null);
-    }
-
-    private Specification<SelectsGradingMale> indexRunnabilityLteSpec() {
-        return ((root, query, cb) -> indexRunnabilityLte != null
-                ? cb.lessThanOrEqualTo(root.get("indexRunnability"), indexRunnabilityLte)
+    private Specification<SelectsGradingMale> runnabilityIndexLteSpec() {
+        return ((root, query, cb) -> runnabilityIndexLte != null
+                ? cb.lessThanOrEqualTo(root.get("runnabilityIndex"), runnabilityIndexLte)
                 : null);
     }
 
@@ -289,15 +275,15 @@ public record SelectsGradingMaleFilter(String markerContains, LocalDate dateOfBi
                 : null);
     }
 
-    private Specification<SelectsGradingMale> spermatocritValueGteSpec() {
-        return ((root, query, cb) -> spermatocritValueGte != null
-                ? cb.greaterThanOrEqualTo(root.get("spermatocritValue"), spermatocritValueGte)
+    private Specification<SelectsGradingMale> spermConcentrationGteSpec() {
+        return ((root, query, cb) -> spermConcentrationGte != null
+                ? cb.greaterThanOrEqualTo(root.get("spermConcentration"), spermConcentrationGte)
                 : null);
     }
 
-    private Specification<SelectsGradingMale> spermatocritValueLteSpec() {
-        return ((root, query, cb) -> spermatocritValueLte != null
-                ? cb.lessThanOrEqualTo(root.get("spermatocritValue"), spermatocritValueLte)
+    private Specification<SelectsGradingMale> spermConcentrationLteSpec() {
+        return ((root, query, cb) -> spermConcentrationLte != null
+                ? cb.lessThanOrEqualTo(root.get("spermConcentration"), spermConcentrationLte)
                 : null);
     }
 

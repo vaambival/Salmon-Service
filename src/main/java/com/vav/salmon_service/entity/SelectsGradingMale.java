@@ -26,7 +26,7 @@ public class SelectsGradingMale {
     private Long id;
 
     @Column(name = "marker")
-    private String marker;
+    private String tag;
 
     @Column(name = "created")
     private LocalDateTime created;
@@ -35,54 +35,54 @@ public class SelectsGradingMale {
     private LocalDate dateOfBirth;
 
     @Column(name = "date_of_hatching")
-    private LocalDate dateOfHatching;
+    private LocalDate dateOfHatch;
 
     @Column(name = "date_of_start_feeding")
-    private LocalDate dateOfStartFeeding;
+    private LocalDate dateOfFirstFeed;
 
     @Column(name = "estimated_age_days")
-    private Integer estimatedAgeDays;
+    private Integer ageInDays;
 
     @Column(name = "estimated_age_degree_days")
-    private Integer estimatedAgeDegreeDays;
+    private Integer ageInDayDegrees;
 
     //абсолютные показатели телосложения
     @Column(name = "absolute_length")
-    private Integer absoluteLength;
+    private Integer lengthAbsolute;
 
     @Column(name = "body_length_before_end_scale_cover")
-    private Integer bodyLengthBeforeEndScaleCover;
+    private Integer lengthBeforeScales;
 
     @Column(name = "body_length")
-    private Integer bodyLength;
+    private Integer lengthBody;
 
     @Column(name = "head_length")
-    private Integer headLength;
+    private Integer lengthHead;
 
     @Column(name = "body_height")
-    private Integer bodyHeight;
+    private Integer heightBody;
 
     @Column(name = "back_thickness")
-    private Integer backThickness;
+    private Integer thicknessOfBack;
 
     @Column(name = "fatness_index")
-    private Double fatnessIndex;
+    private Double fatnessFactor;
 
     @Column(name = "head_index")
-    private Double headIndex;
+    private Double headFactor;
 
     @Column(name = "thickness_index")
-    private Double thicknessIndex;
+    private Double thickFactor;
 
     @Column(name = "index_runnability")
-    private Double indexRunnability;
+    private Double runnabilityIndex;
 
     //абсолютные показатели репродукции
     @Column(name = "ejaculate_volume")
     private Integer ejaculateVolume;
 
     @Column(name = "spermatocrit_value")
-    private Double spermatocritValue;
+    private Double spermConcentration;
 
     @Column(name = "sperm_motility_time")
     private Integer spermMotilityTime;

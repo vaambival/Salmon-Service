@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 /**
  * DTO for {@link com.vav.salmon_service.entity.SelectsGradingMale}
  */
-public record SelectsGradingMaleDto(Long id, String marker, LocalDateTime created, LocalDate dateOfBirth, LocalDate dateOfHatching,
-                                    LocalDate dateOfStartFeeding, Integer estimatedAgeDays,
-                                    Integer estimatedAgeDegreeDays, Integer absoluteLength,
-                                    Integer bodyLengthBeforeEndScaleCover, Integer bodyLength, Integer headLength,
-                                    Integer bodyHeight, Integer backThickness, Double fatnessIndex, Double headIndex,
-                                    Double thicknessIndex, Double indexRunnability, Integer ejaculateVolume, Double spermatocritValue,
+public record SelectsGradingMaleDto(Long id, String tag, LocalDateTime created, LocalDate dateOfBirth, LocalDate dateOfHatch,
+                                    LocalDate dateOfFirstFeed, Integer ageInDays,
+                                    Integer ageInDayDegrees, Integer lengthAbsolute,
+                                    Integer lengthBeforeScales, Integer lengthBody, Integer lengthHead,
+                                    Integer heightBody, Integer thicknessOfBack, Double fatnessFactor, Double headFactor,
+                                    Double thickFactor, Double runnabilityIndex, Integer ejaculateVolume, Double spermConcentration,
                                     Integer spermMotilityTime, String diary) {
 }

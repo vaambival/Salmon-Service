@@ -1,6 +1,7 @@
 package com.vav.salmon_service.entity;
 
 
+import com.vav.salmon_service.common.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +21,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "selects_grading")
+@FieldNameConstants
 public class SelectsGrading {
 
     @Id
@@ -154,4 +158,7 @@ public class SelectsGrading {
     @Column(name = "diary")
     private String diary;
 
+    public boolean isFemale() {
+        return StringUtils.equalsIgnoreCase(gender, Gender.FEMALE.name());
+    }
 }

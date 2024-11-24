@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -66,15 +68,25 @@ public class SelectsGradingService {
     }
 
     private StatisticsReport validateAndUpdateStatistics(SelectsGrading selectsGrading) {
-        //TODO:
         var statistics = fishStatisticRepository.findAll();
         var weightStatistic = statistics.stream()
                 .filter(s -> s.getParamName().equals("weight"))
                 .findFirst()
                 .get();
         var weightStatisticMessage = getWeightMessage(weightStatistic, selectsGrading.getWeight());
-        var listMessages = List.of(weightStatisticMessage);
-
+        var headFactorStatistic = statistics.stream()
+                .filter(s -> s.getParamName().equals("headFactor"))
+                .findFirst()
+                .get();
+        var headFactorMessageMessage = getHeadFactorMessage(headFactorStatistic, selectsGrading.getHeadFactor());
+        var reproductiveIndexStatistic = statistics.stream()
+                .filter(s -> s.getParamName().equals("reproductiveIndex"))
+                .findFirst()
+                .get();
+        var reproductiveIndexMessageMessage = getReproductiveIndexMessage(reproductiveIndexStatistic, selectsGrading.getReproductiveIndex());
+        var listMessages = Stream.of(weightStatisticMessage, headFactorMessageMessage, reproductiveIndexMessageMessage)
+                .filter(Objects::nonNull)
+                .toList();
         return new StatisticsReport(listMessages);
     }
 
@@ -109,13 +121,131 @@ public class SelectsGradingService {
                 message = "Меньше минимума вызывающе";
             }
             return new StatisticsReport.Message("weight", severity, message, bound, weight);
-
         } else if (weight > max) {
-
+            severity = StatisticsReport.SEVERITY.INFO;
+            bound = max;
+            message = "Больше максимума";
+            if (weight > errorMax ) {
+                severity = StatisticsReport.SEVERITY.ERROR;
+                bound = errorMax;
+                message = "Больше максимума не реально";
+            } else if (weight > criticalMax) {
+                severity = StatisticsReport.SEVERITY.CRITICAL_WARNING;
+                bound = criticalMax;
+                message = "Больше максимума критически";
+            } else if (weight > warningMax) {
+                severity = StatisticsReport.SEVERITY.WARNING;
+                bound = warningMax;
+                message = "Больше максимума вызывающе";
+            }
+            return new StatisticsReport.Message("weight", severity, message, bound, weight);
         }
         return null;
     }
-
+    private StatisticsReport.Message getHeadFactorMessage(FishStatistic headFactorStatistic, Double headFactor) {
+        var max = headFactorStatistic.getMaximum();
+        var min = headFactorStatistic.getMinimum();
+        var sigma = headFactorStatistic.getSigma();
+        var warningMin = min - sigma;
+        var criticalMin = min - 3 * sigma;
+        var errorMin = min - 5 * sigma;
+        var warningMax = max + sigma;
+        var criticalMax = max + 3 * sigma;
+        var errorMax = max + 5 * sigma;
+        StatisticsReport.SEVERITY severity;
+        double bound;
+        String message;
+        if (headFactor < min) {
+            severity = StatisticsReport.SEVERITY.INFO;
+            bound = min;
+            message = "Меньше минимума";
+            if (headFactor < errorMin ) {
+                severity = StatisticsReport.SEVERITY.ERROR;
+                bound = errorMin;
+                message = "Меньше минимума не реально";
+            } else if (headFactor < criticalMin) {
+                severity = StatisticsReport.SEVERITY.CRITICAL_WARNING;
+                bound = criticalMin;
+                message = "Меньше минимума критически";
+            } else if (headFactor < warningMin) {
+                severity = StatisticsReport.SEVERITY.WARNING;
+                bound = warningMin;
+                message = "Меньше минимума вызывающе";
+            }
+            return new StatisticsReport.Message("headFactor", severity, message, bound, headFactor);
+        } else if (headFactor > max) {
+            severity = StatisticsReport.SEVERITY.INFO;
+            bound = max;
+            message = "Больше максимума";
+            if (headFactor > errorMax ) {
+                severity = StatisticsReport.SEVERITY.ERROR;
+                bound = errorMax;
+                message = "Больше максимума не реально";
+            } else if (headFactor > criticalMax) {
+                severity = StatisticsReport.SEVERITY.CRITICAL_WARNING;
+                bound = criticalMax;
+                message = "Больше максимума критически";
+            } else if (headFactor > warningMax) {
+                severity = StatisticsReport.SEVERITY.WARNING;
+                bound = warningMax;
+                message = "Больше максимума вызывающе";
+            }
+            return new StatisticsReport.Message("headFactor", severity, message, bound, headFactor);
+        }
+        return null;
+    }
+    private StatisticsReport.Message getReproductiveIndexMessage(FishStatistic reproductiveIndexStatistic, Double reproductiveIndex) {
+        var max = reproductiveIndexStatistic.getMaximum();
+        var min = reproductiveIndexStatistic.getMinimum();
+        var sigma = reproductiveIndexStatistic.getSigma();
+        var warningMin = min - sigma;
+        var criticalMin = min - 3 * sigma;
+        var errorMin = min - 5 * sigma;
+        var warningMax = max + sigma;
+        var criticalMax = max + 3 * sigma;
+        var errorMax = max + 5 * sigma;
+        StatisticsReport.SEVERITY severity;
+        double bound;
+        String message;
+        if (reproductiveIndex < min) {
+            severity = StatisticsReport.SEVERITY.INFO;
+            bound = min;
+            message = "Меньше минимума";
+            if (reproductiveIndex < errorMin ) {
+                severity = StatisticsReport.SEVERITY.ERROR;
+                bound = errorMin;
+                message = "Меньше минимума не реально";
+            } else if (reproductiveIndex < criticalMin) {
+                severity = StatisticsReport.SEVERITY.CRITICAL_WARNING;
+                bound = criticalMin;
+                message = "Меньше минимума критически";
+            } else if (reproductiveIndex < warningMin) {
+                severity = StatisticsReport.SEVERITY.WARNING;
+                bound = warningMin;
+                message = "Меньше минимума вызывающе";
+            }
+            return new StatisticsReport.Message("reproductiveIndex", severity, message, bound, reproductiveIndex);
+        } else if (reproductiveIndex > max) {
+            severity = StatisticsReport.SEVERITY.INFO;
+            bound = max;
+            message = "Больше максимума";
+            if (reproductiveIndex > errorMax ) {
+                severity = StatisticsReport.SEVERITY.ERROR;
+                bound = errorMax;
+                message = "Больше максимума не реально";
+            } else if (reproductiveIndex > criticalMax) {
+                severity = StatisticsReport.SEVERITY.CRITICAL_WARNING;
+                bound = criticalMax;
+                message = "Больше максимума критически";
+            } else if (reproductiveIndex > warningMax) {
+                severity = StatisticsReport.SEVERITY.WARNING;
+                bound = warningMax;
+                message = "Больше максимума вызывающе";
+            }
+            return new StatisticsReport.Message("reproductiveIndex", severity, message, bound, reproductiveIndex);
+        }
+        return null;
+    }
     public SelectsGradingDto patch(Long id, JsonNode patchNode) throws IOException {
         SelectsGrading selectsGrading = selectsGradingRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(id)));

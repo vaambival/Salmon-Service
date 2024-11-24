@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vav.salmon_service.converter.SelectsGradingMapper;
 import com.vav.salmon_service.dto.CreateResponse;
+import com.vav.salmon_service.dto.GetListResponse;
 import com.vav.salmon_service.dto.SelectsGradingDto;
 import com.vav.salmon_service.dto.report.StatisticsReport;
 import com.vav.salmon_service.entity.FishStatistic;
@@ -39,10 +40,16 @@ public class SelectsGradingService {
 
     private final ObjectMapper objectMapper;
 
-    public Page<SelectsGradingDto> getList(SelectsGradingFilter filter, Pageable pageable) {
+    public GetListResponse getList(SelectsGradingFilter filter, Pageable pageable) {
         Specification<SelectsGrading> spec = filter.toSpecification();
         Page<SelectsGrading> selectsGradingMales = selectsGradingRepository.findAll(spec, pageable);
-        return selectsGradingMales.map(selectsGradingMapper::toDto);
+        var selectGradings = selectsGradingMales.map(selectsGradingMapper::toDto);
+        GetListResponse response = new GetListResponse(selectGradings);
+        var stat = fishStatisticRepository.findAll();
+        stat.forEach(st -> {
+            response.addDiapason(st);
+        });
+        return response;
     }
 
     public SelectsGradingDto getOne(Long id) {

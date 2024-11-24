@@ -83,7 +83,9 @@ public class SelectsGradingService {
                 .filter(s -> s.getParamName().equals("reproductiveIndex"))
                 .findFirst()
                 .get();
-        var reproductiveIndexMessageMessage = getReproductiveIndexMessage(reproductiveIndexStatistic, selectsGrading.getReproductiveIndex());
+        var reproductiveIndexMessageMessage = "female".equalsIgnoreCase(selectsGrading.getGender()) ?
+                getReproductiveIndexMessage(reproductiveIndexStatistic, selectsGrading.getReproductiveIndex()) :
+                null;
         var listMessages = Stream.of(weightStatisticMessage, headFactorMessageMessage, reproductiveIndexMessageMessage)
                 .filter(Objects::nonNull)
                 .toList();
@@ -91,6 +93,7 @@ public class SelectsGradingService {
     }
 
     private StatisticsReport.Message getWeightMessage(FishStatistic weightStatistic, Integer weight) {
+        weight = weight == null ? 0 : weight;
         var max = weightStatistic.getMaximum();
         var min = weightStatistic.getMinimum();
         var sigma = weightStatistic.getSigma();
@@ -143,6 +146,7 @@ public class SelectsGradingService {
         return null;
     }
     private StatisticsReport.Message getHeadFactorMessage(FishStatistic headFactorStatistic, Double headFactor) {
+        headFactor = headFactor == null ? 0.0 : headFactor;
         var max = headFactorStatistic.getMaximum();
         var min = headFactorStatistic.getMinimum();
         var sigma = headFactorStatistic.getSigma();
@@ -195,6 +199,7 @@ public class SelectsGradingService {
         return null;
     }
     private StatisticsReport.Message getReproductiveIndexMessage(FishStatistic reproductiveIndexStatistic, Double reproductiveIndex) {
+        reproductiveIndex = reproductiveIndex == null ? 0.0 : reproductiveIndex;
         var max = reproductiveIndexStatistic.getMaximum();
         var min = reproductiveIndexStatistic.getMinimum();
         var sigma = reproductiveIndexStatistic.getSigma();

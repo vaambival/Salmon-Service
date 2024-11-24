@@ -19,12 +19,12 @@ public class YellowBoundValues {
         maximumBounds = new MaximumReport(averageReport, sigmaReport);
 
         salmons.forEach(salmon -> {
-            fillIfBetween(salmon.getId(), weight, Double.valueOf(salmon.getWeight()), minimumBounds.weight, maximumBounds.weight);
-            fillIfBetween(salmon.getId(), lengthBody, Double.valueOf(salmon.getLengthBody()), minimumBounds.lengthBody, maximumBounds.lengthBody);
-            fillIfBetween(salmon.getId(), heightBody, Double.valueOf(salmon.getHeightBody()), minimumBounds.heightBody, maximumBounds.heightBody);
-            fillIfBetween(salmon.getId(), thicknessOfBack, Double.valueOf(salmon.getThicknessOfBack()), minimumBounds.thicknessOfBack, maximumBounds.thicknessOfBack);
-            fillIfBetween(salmon.getId(), weightOfEggs, Double.valueOf(salmon.getWeightOfEggs()), minimumBounds.weightOfEggs, maximumBounds.weightOfEggs);
-            fillIfBetween(salmon.getId(), weightOfSingleEgg, Double.valueOf(salmon.getWeightOfSingleEgg()), minimumBounds.weightOfSingleEgg, maximumBounds.weightOfSingleEgg);
+            fillIfBetween(salmon.getId(), weight, salmon.getWeight(), minimumBounds.weight, maximumBounds.weight);
+            fillIfBetween(salmon.getId(), lengthBody, salmon.getLengthBody(), minimumBounds.lengthBody, maximumBounds.lengthBody);
+            fillIfBetween(salmon.getId(), heightBody, salmon.getHeightBody(), minimumBounds.heightBody, maximumBounds.heightBody);
+            fillIfBetween(salmon.getId(), thicknessOfBack, salmon.getThicknessOfBack(), minimumBounds.thicknessOfBack, maximumBounds.thicknessOfBack);
+            fillIfBetween(salmon.getId(), weightOfEggs, salmon.getWeightOfEggs(), minimumBounds.weightOfEggs, maximumBounds.weightOfEggs);
+            fillIfBetween(salmon.getId(), weightOfSingleEgg, salmon.getWeightOfSingleEgg(), minimumBounds.weightOfSingleEgg, maximumBounds.weightOfSingleEgg);
             fillIfBetween(salmon.getId(), fatnessFactor, salmon.getFatnessFactor(), minimumBounds.fatnessFactor, maximumBounds.fatnessFactor);
             fillIfBetween(salmon.getId(), thickFactor, salmon.getThickFactor(), minimumBounds.thickFactor, maximumBounds.thickFactor);
             fillIfBetween(salmon.getId(), runnabilityIndex, salmon.getRunnabilityIndex(), minimumBounds.runnabilityIndex, maximumBounds.runnabilityIndex);
@@ -33,16 +33,20 @@ public class YellowBoundValues {
             fillIfBetween(salmon.getId(), workingFertility, salmon.getWorkingFertility(), minimumBounds.workingFertility, maximumBounds.workingFertility);
             fillIfBetween(salmon.getId(), relativeFecundity, salmon.getRelativeFecundity(), minimumBounds.relativeFecundity, maximumBounds.relativeFecundity);
             fillIfBetween(salmon.getId(), reproductiveIndex, salmon.getReproductiveIndex(), minimumBounds.reproductiveIndex, maximumBounds.reproductiveIndex);
-            fillIfBetween(salmon.getId(), percentOfDeathToThePeephole, Double.valueOf(salmon.getPercentOfDeathToThePeephole()), minimumBounds.percentOfDeathToThePeephole, maximumBounds.percentOfDeathToThePeephole);
-            fillIfBetween(salmon.getId(), percentOfDeathAfterThePeephole, Double.valueOf(salmon.getPercentOfDeathAfterThePeephole()), minimumBounds.percentOfDeathAfterThePeephole, maximumBounds.percentOfDeathAfterThePeephole);
-            fillIfBetween(salmon.getId(), percentOfEggFertilization, Double.valueOf(salmon.getPercentOfEggFertilization()), minimumBounds.percentOfEggFertilization, maximumBounds.percentOfEggFertilization);
-            fillIfBetween(salmon.getId(), percentOfEmbryoSurvival, Double.valueOf(salmon.getPercentOfEmbryoSurvival()), minimumBounds.percentOfEmbryoSurvival, maximumBounds.percentOfEmbryoSurvival);
+            fillIfBetween(salmon.getId(), percentOfDeathToThePeephole, salmon.getPercentOfDeathToThePeephole(), minimumBounds.percentOfDeathToThePeephole, maximumBounds.percentOfDeathToThePeephole);
+            fillIfBetween(salmon.getId(), percentOfDeathAfterThePeephole, salmon.getPercentOfDeathAfterThePeephole(), minimumBounds.percentOfDeathAfterThePeephole, maximumBounds.percentOfDeathAfterThePeephole);
+            fillIfBetween(salmon.getId(), percentOfEggFertilization, salmon.getPercentOfEggFertilization(), minimumBounds.percentOfEggFertilization, maximumBounds.percentOfEggFertilization);
+            fillIfBetween(salmon.getId(), percentOfEmbryoSurvival, salmon.getPercentOfEmbryoSurvival(), minimumBounds.percentOfEmbryoSurvival, maximumBounds.percentOfEmbryoSurvival);
         });
     }
 
-    private void fillIfBetween(Long id, String fieldName, Double val, double min, double max) {
-        if (val != null && val >= min && val < max) {
-            fishCharacteristics.add(new EliteFishReport(String.valueOf(id), fieldName, val));
+    private void fillIfBetween(Long id, String fieldName, Number val, double min, double max) {
+        if (val == null) {
+            return;
+        }
+        double dVal = val.doubleValue();
+        if (dVal >= min && dVal < max) {
+            fishCharacteristics.add(new EliteFishReport(String.valueOf(id), fieldName, dVal));
         }
     }
 }

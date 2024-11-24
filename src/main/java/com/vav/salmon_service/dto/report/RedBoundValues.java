@@ -34,12 +34,12 @@ public class RedBoundValues {
         minimumBounds = new MaximumReport(averageReport, sigmaReport);
 
         salmons.forEach(salmon -> {
-            fillIfGreaterOrEqual(salmon.getId(), weight, Double.valueOf(salmon.getWeight()), minimumBounds.weight);
-            fillIfGreaterOrEqual(salmon.getId(), lengthBody, Double.valueOf(salmon.getLengthBody()), minimumBounds.lengthBody);
-            fillIfGreaterOrEqual(salmon.getId(), heightBody, Double.valueOf(salmon.getHeightBody()), minimumBounds.heightBody);
-            fillIfGreaterOrEqual(salmon.getId(), thicknessOfBack, Double.valueOf(salmon.getThicknessOfBack()), minimumBounds.thicknessOfBack);
-            fillIfGreaterOrEqual(salmon.getId(), weightOfEggs, Double.valueOf(salmon.getWeightOfEggs()), minimumBounds.weightOfEggs);
-            fillIfGreaterOrEqual(salmon.getId(), weightOfSingleEgg, Double.valueOf(salmon.getWeightOfSingleEgg()), minimumBounds.weightOfSingleEgg);
+            fillIfGreaterOrEqual(salmon.getId(), weight, salmon.getWeight(), minimumBounds.weight);
+            fillIfGreaterOrEqual(salmon.getId(), lengthBody, salmon.getLengthBody(), minimumBounds.lengthBody);
+            fillIfGreaterOrEqual(salmon.getId(), heightBody, salmon.getHeightBody(), minimumBounds.heightBody);
+            fillIfGreaterOrEqual(salmon.getId(), thicknessOfBack, salmon.getThicknessOfBack(), minimumBounds.thicknessOfBack);
+            fillIfGreaterOrEqual(salmon.getId(), weightOfEggs, salmon.getWeightOfEggs(), minimumBounds.weightOfEggs);
+            fillIfGreaterOrEqual(salmon.getId(), weightOfSingleEgg, salmon.getWeightOfSingleEgg(), minimumBounds.weightOfSingleEgg);
             fillIfGreaterOrEqual(salmon.getId(), fatnessFactor, salmon.getFatnessFactor(), minimumBounds.fatnessFactor);
             fillIfGreaterOrEqual(salmon.getId(), thickFactor, salmon.getThickFactor(), minimumBounds.thickFactor);
             fillIfGreaterOrEqual(salmon.getId(), runnabilityIndex, salmon.getRunnabilityIndex(), minimumBounds.runnabilityIndex);
@@ -48,15 +48,19 @@ public class RedBoundValues {
             fillIfGreaterOrEqual(salmon.getId(), workingFertility, salmon.getWorkingFertility(), minimumBounds.workingFertility);
             fillIfGreaterOrEqual(salmon.getId(), relativeFecundity, salmon.getRelativeFecundity(), minimumBounds.relativeFecundity);
             fillIfGreaterOrEqual(salmon.getId(), reproductiveIndex, salmon.getReproductiveIndex(), minimumBounds.reproductiveIndex);
-            fillIfGreaterOrEqual(salmon.getId(), percentOfDeathToThePeephole, Double.valueOf(salmon.getPercentOfDeathToThePeephole()), minimumBounds.percentOfDeathToThePeephole);
-            fillIfGreaterOrEqual(salmon.getId(), percentOfDeathAfterThePeephole, Double.valueOf(salmon.getPercentOfDeathAfterThePeephole()), minimumBounds.percentOfDeathAfterThePeephole);
-            fillIfGreaterOrEqual(salmon.getId(), percentOfEggFertilization, Double.valueOf(salmon.getPercentOfEggFertilization()), minimumBounds.percentOfEggFertilization);
-            fillIfGreaterOrEqual(salmon.getId(), percentOfEmbryoSurvival, Double.valueOf(salmon.getPercentOfEmbryoSurvival()), minimumBounds.percentOfEmbryoSurvival);
+            fillIfGreaterOrEqual(salmon.getId(), percentOfDeathToThePeephole, salmon.getPercentOfDeathToThePeephole(), minimumBounds.percentOfDeathToThePeephole);
+            fillIfGreaterOrEqual(salmon.getId(), percentOfDeathAfterThePeephole, salmon.getPercentOfDeathAfterThePeephole(), minimumBounds.percentOfDeathAfterThePeephole);
+            fillIfGreaterOrEqual(salmon.getId(), percentOfEggFertilization, salmon.getPercentOfEggFertilization(), minimumBounds.percentOfEggFertilization);
+            fillIfGreaterOrEqual(salmon.getId(), percentOfEmbryoSurvival, salmon.getPercentOfEmbryoSurvival(), minimumBounds.percentOfEmbryoSurvival);
         });
     }
 
-    private void fillIfGreaterOrEqual(Long id, String fieldName, Double val, double min) {
-        if (val != null && val >= min) {
+    private void fillIfGreaterOrEqual(Long id, String fieldName, Number num, double min) {
+        if (num == null) {
+            return;
+        }
+        double val = num.doubleValue();
+        if (val >= min) {
             fishCharacteristics.add(new EliteFishReport(String.valueOf(id), fieldName, val));
         }
     }

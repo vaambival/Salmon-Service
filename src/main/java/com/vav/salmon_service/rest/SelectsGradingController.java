@@ -1,6 +1,7 @@
 package com.vav.salmon_service.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.vav.salmon_service.dto.GetListResponse;
 import com.vav.salmon_service.dto.CreateResponse;
 import com.vav.salmon_service.dto.SelectsGradingDto;
 import com.vav.salmon_service.service.SelectsGradingService;
@@ -30,9 +31,9 @@ public class SelectsGradingController {
     private final SelectsGradingService selectsGradingService;
 
     @GetMapping
-    public PagedModel<SelectsGradingDto> getList(@ModelAttribute SelectsGradingFilter filter, Pageable pageable) {
-        Page<SelectsGradingDto> selectsGradingMaleDtos = selectsGradingService.getList(filter, pageable);
-        return new PagedModel<>(selectsGradingMaleDtos);
+    public GetListResponse getList(@ModelAttribute SelectsGradingFilter filter, Pageable pageable) {
+        GetListResponse getListResponse = selectsGradingService.getList(filter, pageable);
+        return getListResponse;
     }
 
     @GetMapping("/{id}")

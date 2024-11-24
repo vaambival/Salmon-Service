@@ -3,7 +3,9 @@ package com.vav.salmon_service.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vav.salmon_service.converter.SelectsGradingMapper;
+import com.vav.salmon_service.dto.CreateResponse;
 import com.vav.salmon_service.dto.SelectsGradingDto;
+import com.vav.salmon_service.dto.report.StatisticsReport;
 import com.vav.salmon_service.entity.SelectsGrading;
 import com.vav.salmon_service.repository.SelectsGradingRepository;
 import com.vav.salmon_service.rest.SelectsGradingFilter;
@@ -50,11 +52,17 @@ public class SelectsGradingService {
                 .toList();
     }
 
-    public SelectsGradingDto create(SelectsGradingDto dto) {
+    public CreateResponse create(SelectsGradingDto dto) {
         SelectsGrading selectsGrading = selectsGradingMapper.toEntity(dto);
         selectsGrading.setCreated(LocalDateTime.now());
+        var statisticsReport = validateAndUpdateStatistics(selectsGrading);
         SelectsGrading resultSelectsGrading = selectsGradingRepository.save(selectsGrading);
-        return selectsGradingMapper.toDto(resultSelectsGrading);
+        var savedDto = selectsGradingMapper.toDto(resultSelectsGrading);
+        return new CreateResponse(savedDto, statisticsReport);
+    }
+
+    private StatisticsReport validateAndUpdateStatistics(SelectsGrading selectsGrading) {
+        //TODO:
     }
 
     public SelectsGradingDto patch(Long id, JsonNode patchNode) throws IOException {

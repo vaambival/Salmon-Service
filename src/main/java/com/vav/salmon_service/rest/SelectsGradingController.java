@@ -1,6 +1,7 @@
 package com.vav.salmon_service.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.vav.salmon_service.dto.CreateResponse;
 import com.vav.salmon_service.dto.SelectsGradingDto;
 import com.vav.salmon_service.service.SelectsGradingService;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class SelectsGradingController {
     }
 
     @PostMapping
-    public SelectsGradingDto create(@RequestBody SelectsGradingDto dto) {
+    public CreateResponse create(@RequestBody SelectsGradingDto dto) {
         return selectsGradingService.create(dto);
     }
 

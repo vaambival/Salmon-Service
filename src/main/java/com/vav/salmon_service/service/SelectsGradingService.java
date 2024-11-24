@@ -45,7 +45,10 @@ public class SelectsGradingService {
         Page<SelectsGrading> selectsGradingMales = selectsGradingRepository.findAll(spec, pageable);
         var selectGradings = selectsGradingMales.map(selectsGradingMapper::toDto);
         GetListResponse response = new GetListResponse(selectGradings);
-        //tODO: репа берет стату и кидает в json
+        var stat = fishStatisticRepository.findAll();
+        stat.forEach(st -> {
+            response.addDiapason(st);
+        });
         return response;
     }
 

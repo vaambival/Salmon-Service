@@ -1,5 +1,6 @@
 package com.vav.salmon_service.dto;
 
+import com.vav.salmon_service.entity.FishStatistic;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedModel;
@@ -16,11 +17,14 @@ public class GetListResponse {
         this.content = new PagedModel<>(selectGradings);
     }
 
-
-    @Getter
-    public static class Diapason {
-        String fieldName;
-        double yellowBound;
-        double redBound;
+    public void addDiapason(FishStatistic st) {
+        Diapason diapason = new Diapason(st.getParamName(), st.getAverage() - st.getSigma(),
+                st.getAverage() + st.getSigma());
+        diapasons.add(diapason);
     }
+
+    public record Diapason (
+        String fieldName,
+        double yellowBound,
+        double redBound ) {}
 }

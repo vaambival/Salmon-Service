@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.vav</groupId>
 	<artifactId>salmon-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>salmon-service</name>
 	<description>salmon-service</description>
 	<properties>

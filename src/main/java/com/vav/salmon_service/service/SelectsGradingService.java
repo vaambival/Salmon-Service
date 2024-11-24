@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,7 @@ public class SelectsGradingService {
 
     public SelectsGradingDto create(SelectsGradingDto dto) {
         SelectsGrading selectsGrading = selectsGradingMapper.toEntity(dto);
+        selectsGrading.setCreated(LocalDateTime.now());
         SelectsGrading resultSelectsGrading = selectsGradingRepository.save(selectsGrading);
         return selectsGradingMapper.toDto(resultSelectsGrading);
     }

@@ -1,12 +1,12 @@
 --liquibase formatted sql
 --changeset vkurov:create-table-statistic
 CREATE TABLE IF NOT EXISTS fish_statistics (
-    param_name varchar CONSTRAINT fs_pk PRIMARY KEY,
-    average real CONSTRAINT not null,
-    maximum real CONSTRAINT not null,
-    minimum real CONSTRAINT not null,
-    sigma real CONSTRAINT not null,
-    count bigint CONSTRAINT not null
+    param_name varchar PRIMARY KEY,
+    average real not null,
+    maximum real not null,
+    minimum real not null,
+    sigma real not null,
+    count bigint not null
 );
 
 insert into fish_statistics (param_name, average, maximum, minimum, sigma, count) VALUES

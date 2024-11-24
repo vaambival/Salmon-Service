@@ -6,7 +6,9 @@ import com.vav.salmon_service.converter.SelectsGradingMapper;
 import com.vav.salmon_service.dto.CreateResponse;
 import com.vav.salmon_service.dto.SelectsGradingDto;
 import com.vav.salmon_service.dto.report.StatisticsReport;
+import com.vav.salmon_service.entity.FishStatistic;
 import com.vav.salmon_service.entity.SelectsGrading;
+import com.vav.salmon_service.repository.FishStatisticRepository;
 import com.vav.salmon_service.repository.SelectsGradingRepository;
 import com.vav.salmon_service.rest.SelectsGradingFilter;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,8 @@ public class SelectsGradingService {
     private final SelectsGradingMapper selectsGradingMapper;
 
     private final SelectsGradingRepository selectsGradingRepository;
+
+    private final FishStatisticRepository fishStatisticRepository;
 
     private final ObjectMapper objectMapper;
 
@@ -63,6 +67,53 @@ public class SelectsGradingService {
 
     private StatisticsReport validateAndUpdateStatistics(SelectsGrading selectsGrading) {
         //TODO:
+        var statistics = fishStatisticRepository.findAll();
+        var weightStatistic = statistics.stream()
+                .filter(s -> s.getParamName().equals("weight"))
+                .findFirst()
+                .get();
+        var weightStatisticMessage = getWeightMessage(weightStatistic, selectsGrading.getWeight());
+        var listMessages = List.of(weightStatisticMessage);
+
+        return new StatisticsReport(listMessages);
+    }
+
+    private StatisticsReport.Message getWeightMessage(FishStatistic weightStatistic, Integer weight) {
+        var max = weightStatistic.getMaximum();
+        var min = weightStatistic.getMinimum();
+        var sigma = weightStatistic.getSigma();
+        var warningMin = min - sigma;
+        var criticalMin = min - 3 * sigma;
+        var errorMin = min - 5 * sigma;
+        var warningMax = max + sigma;
+        var criticalMax = max + 3 * sigma;
+        var errorMax = max + 5 * sigma;
+        StatisticsReport.SEVERITY severity;
+        double bound;
+        String message;
+        if (weight < min) {
+            severity = StatisticsReport.SEVERITY.INFO;
+            bound = min;
+            message = "Меньше минимума";
+            if (weight < errorMin ) {
+                severity = StatisticsReport.SEVERITY.ERROR;
+                bound = errorMin;
+                message = "Меньше минимума не реально";
+            } else if (weight < criticalMin) {
+                severity = StatisticsReport.SEVERITY.CRITICAL_WARNING;
+                bound = criticalMin;
+                message = "Меньше минимума критически";
+            } else if (weight < warningMin) {
+                severity = StatisticsReport.SEVERITY.WARNING;
+                bound = warningMin;
+                message = "Меньше минимума вызывающе";
+            }
+            return new StatisticsReport.Message("weight", severity, message, bound, weight);
+
+        } else if (weight > max) {
+
+        }
+        return null;
     }
 
     public SelectsGradingDto patch(Long id, JsonNode patchNode) throws IOException {

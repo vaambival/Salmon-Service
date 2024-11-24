@@ -34,7 +34,9 @@ public class ReportGenerator {
         CvReport cvReport = new CvReport();
         calcCvReport(cvReport, sigmaReport, average);
         AnomalyValues anomalyValues = new AnomalyValues();
-        return new GradeSalmonReport(average, max, min, sigmaReport, errorReport, cvReport, null, null, lostValues, anomalyValues);
+        YellowBoundValues yellowBoundValues = new YellowBoundValues(average, sigmaReport, salmons);
+        RedBoundValues redBoundValues = new RedBoundValues(average, sigmaReport, salmons);
+        return new GradeSalmonReport(average, max, min, sigmaReport, errorReport, cvReport, redBoundValues, yellowBoundValues, lostValues, anomalyValues);
     }
 
     private void calcCvReport(CvReport cvReport, SigmaReport sigmaReport, ReportRecord average) {
@@ -324,13 +326,13 @@ public class ReportGenerator {
 
     private void relativeFecundity(ReportRecord average, SelectsGrading salmon, BiFunction<Double, Double, Double> func) {
         if (salmon.getRelativeFecundity() != null) {
-            average.relativeFecundity = func.apply(average.relativeFecundity, Double.valueOf(salmon.getRelativeFecundity()));
+            average.relativeFecundity = func.apply(average.relativeFecundity, salmon.getRelativeFecundity());
         }
     }
 
     private void reproductiveIndex(ReportRecord average, SelectsGrading salmon, BiFunction<Double, Double, Double> func) {
         if (salmon.getReproductiveIndex() != null) {
-            average.reproductiveIndex = func.apply(average.reproductiveIndex, Double.valueOf(salmon.getReproductiveIndex()));
+            average.reproductiveIndex = func.apply(average.reproductiveIndex, salmon.getReproductiveIndex());
         }
     }
 
